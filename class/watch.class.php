@@ -1,7 +1,7 @@
 <?php
-include '../class/pcss.class.php';
+include $rootPath.'/class/pcss.class.php';
 /**
- * ¼àÊÓ½âÎöÀà
+ * ç›‘è§†è§£æžç±»
  */
 class watch{
 	private $allFile=array();
@@ -10,17 +10,17 @@ class watch{
 	private $outputDir='';
 	
 	/**
-	 * ¹¹Ôìº¯Êý¡£ÔÚÆäÖÐ£¬´´½¨ÁËpcss½âÎöÀà
+	 * æž„é€ å‡½æ•°ã€‚åœ¨å…¶ä¸­ï¼Œåˆ›å»ºäº†pcssè§£æžç±»
 	 */
 	public function __construct(){
 		$this->pcss=new pcss();
 	}
 	
 	/**
-	 * ¼àÊÓÒ»¸öÎÄ¼þ»òÕßÄ¿Â¼
+	 * ç›‘è§†ä¸€ä¸ªæ–‡ä»¶æˆ–è€…ç›®å½•
 	 * 
-	 * @param string $name ÎÄ¼þ»òÕßÄ¿Â¼
-	 * @param string $outputDir Êä³öµÄÄ¿Â¼
+	 * @param string $name æ–‡ä»¶æˆ–è€…ç›®å½•
+	 * @param string $outputDir è¾“å‡ºçš„ç›®å½•
 	 */
 	public function watch($name,$outputDir){
 		if(empty($name)){
@@ -42,10 +42,10 @@ class watch{
 		}
 	}
 	/**
-	 * Ñ­»·¼àÊÓÄ¿Â¼
+	 * å¾ªçŽ¯ç›‘è§†ç›®å½•
 	 * 
-	 * @param string $dirname ¼àÊÓµÄÄ¿Â¼
-	 * @param string $outputdir Ä¬ÈÏÎª¿Õ£¬Êä³öµÄÄ¿Â¼
+	 * @param string $dirname ç›‘è§†çš„ç›®å½•
+	 * @param string $outputdir é»˜è®¤ä¸ºç©ºï¼Œè¾“å‡ºçš„ç›®å½•
 	 */
 	public function watchDir($dirname,$outputDir=''){
 		if(!empty($outputDir)){
@@ -57,10 +57,10 @@ class watch{
 		}
 	}
 	/**
-	 * Ñ­»·¼àÊÓÎÄ¼þ
+	 * å¾ªçŽ¯ç›‘è§†æ–‡ä»¶
 	 * 
-	 * @param string $filename ¼àÊÓµÄÎÄ¼þ
-	 * @param string $outputdir Ä¬ÈÏÎª¿Õ£¬Êä³öµÄÄ¿Â¼
+	 * @param string $filename ç›‘è§†çš„æ–‡ä»¶
+	 * @param string $outputdir é»˜è®¤ä¸ºç©ºï¼Œè¾“å‡ºçš„ç›®å½•
 	 */
 	public function watchFile($filename,$outputDir=''){
 		if(!empty($outputDir)){
@@ -72,10 +72,10 @@ class watch{
 		}
 	}
 	/**
-	 * »ñÈ¡Ä³¸öÎÄ¼þµÄºó×ºÃû
+	 * èŽ·å–æŸä¸ªæ–‡ä»¶çš„åŽç¼€å
 	 * 
-	 * @param string $file ÒªÈ¡µÃºó×ºÃûµÄÎÄ¼þ
-	 * @return string ·µ»Øºó×ºÃû
+	 * @param string $file è¦å–å¾—åŽç¼€åçš„æ–‡ä»¶
+	 * @return string è¿”å›žåŽç¼€å
 	 */
 	private function get_extension($file)
 	{
@@ -88,23 +88,23 @@ class watch{
 	}
 	
 	/**
-	 * ¼àÊÓÎÄ¼þ
+	 * ç›‘è§†æ–‡ä»¶
 	 * 
-	 * @param string $dirname Òª±»¼àÊÓµÄÄ¿Â¼Ãû×Ö
+	 * @param string $dirname è¦è¢«ç›‘è§†çš„ç›®å½•åå­—
 	 */
 	private function fetchFile($filename){
 		$ext=$this->get_extension($filename);
 		if($ext=='pcss'){
 			$file_md5=$this->allFile[$filename];
 			if(empty($file_md5)){
-				//Éú³Éphp
+				//ç”Ÿæˆphp
 				$this->pcss->fetch($filename,$this->outputDir.basename($filename,'.pcss').'.css');
 				echo $filename.' fetch to'.$this->outputDir.basename($filename,'.pcss').'.css'."\n";
 				$this->allFile[$filename]=md5_file($filename);
 			}
 				
 			if($file_md5!=md5_file($filename)){
-				//Éú³Éphp
+				//ç”Ÿæˆphp
 				$this->pcss->fetch($filename,$this->outputDir.basename($filename,'.pcss').'.css');
 				echo $filename.' fetch to'.$this->outputDir.basename($filename,'.pcss').'.css'."\n";
 				$this->allFile[$filename]=md5_file($filename);
@@ -112,9 +112,9 @@ class watch{
 		}
 	}
 	/**
-	 * ¼àÊÓÄ¿Â¼
+	 * ç›‘è§†ç›®å½•
 	 * 
-	 * @param string $dirname Òª±»¼àÊÓµÄÄ¿Â¼Ãû×Ö
+	 * @param string $dirname è¦è¢«ç›‘è§†çš„ç›®å½•åå­—
 	 */
 	private function fetchDir($dirname){
 		foreach(glob($dirname."*") as $key=>$filename) {

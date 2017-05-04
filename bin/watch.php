@@ -10,7 +10,8 @@ if(empty($argv[2])){
 	echo 'please add a dir to output';
 	die;
 }
-include '../class/watch.class.php';
+$rootPath = dirname(dirname(__FILE__));
+include $rootPath.'/class/watch.class.php';
 $watch=new watch();
 $watch->watch($argv[1],$argv[2]);
 ?>

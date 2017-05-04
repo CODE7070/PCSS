@@ -1,16 +1,16 @@
 <?php
 /**
- * pcss文件的解析类
+ * pcss鏂囦欢鐨勮В鏋愮被
  */
 class pcss{
 	private $dirname='';
 	private $tmpOutputFile='';
 	/**
-	 * 将pcss文件，解析成php文件
+	 * 灏唒css鏂囦欢锛岃В鏋愭垚php鏂囦欢
 	 * 
-	 * @param string $filename pcss文件
-	 * @param string $outputFile 要输出的文件
-	 * @return mixed 失败false，成功返回true
+	 * @param string $filename pcss鏂囦欢
+	 * @param string $outputFile 瑕佽緭鍑虹殑鏂囦欢
+	 * @return mixed 澶辫触false锛屾垚鍔熻繑鍥瀟rue
 	 */
 	public function fetch($filename,$outputFile){
 		if(!file_exists($filename)){
@@ -26,10 +26,10 @@ class pcss{
 	}
 	
 	/**
-	 * 输出临时文件，将pcss解析成php后，输出到指定的目录
+	 * 杈撳嚭涓存椂鏂囦欢锛屽皢pcss瑙ｆ瀽鎴恜hp鍚庯紝杈撳嚭鍒版寚瀹氱殑鐩綍
 	 * 
-	 * @param string $content 要输出的内容
-	 * @return bool 成功true，失败返回false
+	 * @param string $content 瑕佽緭鍑虹殑鍐呭
+	 * @return bool 鎴愬姛true锛屽け璐ヨ繑鍥瀎alse
 	 * 
 	 */
 	public function tempOutput($content){
@@ -42,13 +42,13 @@ class pcss{
 	}
 	
 	/**
-	 * 输出目标文件
+	 * 杈撳嚭鐩爣鏂囦欢
 	 * 
-	 * @param string $filename 目标文件
-	 * @return bool 成功返回true，失败返回false
+	 * @param string $filename 鐩爣鏂囦欢
+	 * @return bool 鎴愬姛杩斿洖true锛屽け璐ヨ繑鍥瀎alse
 	 */
 	public function output($filename){
-		//如果目录不存在，则建立起目录
+		//濡傛灉鐩綍涓嶅瓨鍦紝鍒欏缓绔嬭捣鐩綍
 		$dir=dirname($filename);
 		if(!is_dir($dir)){
 			mkdir($dir,0777,TRUE);
