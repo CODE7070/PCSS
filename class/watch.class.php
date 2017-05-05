@@ -71,21 +71,7 @@ class watch{
 			sleep(1);
 		}
 	}
-	/**
-	 * 获取某个文件的后缀名
-	 * 
-	 * @param string $file 要取得后缀名的文件
-	 * @return string 返回后缀名
-	 */
-	private function get_extension($file)
-	{
-		$info = pathinfo($file);
-		
-		if(empty($info['extension'])){
-			return '';
-		}
-		return $info['extension'];
-	}
+	
 	
 	/**
 	 * 监视文件

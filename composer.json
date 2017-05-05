@@ -1,0 +1,7 @@
+{
+    "require": {
+        "symfony/console": "^3.2",
+        "latte/latte": "^2.4",
+        "symfony/finder": "^3.2"
+    }
+}
