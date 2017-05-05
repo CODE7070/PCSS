@@ -4,6 +4,7 @@
 if(!isset($arg)){
     $arg='';
 }
-$result=$latte->renderToString($pcss_path."/test/src/test.pcss", $arg);
-$filename='/'.basename($currenFile);
+$pcss_file=dirname($currenFile).'/'.basename($currenFile,'.php').'.pcss';
+$result=$latte->renderToString($pcss_file, $arg);
+$filename='/'.basename($currenFile,'.php').'.css';
 file_put_contents($destPath.$filename, $result);
