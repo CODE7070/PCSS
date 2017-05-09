@@ -96,6 +96,13 @@ class watchCommand extends Command{
 			if(empty($file_md5)){
 				//开启子进程执行php boot文件
                 $this->fetchPHP($filename);
+				//将pcss加入到监控中
+				$pcss_file=dirname($filename).'\\'.basename($filename,'.php').'.pcss';
+				if(!file_exists($pcss_file)){
+    				echo "$pcss_file not found!\n";
+    				return;
+				}
+				$this->allFile[$pcss_file]=md5_file($pcss_file);
 				$this->allFile[$filename]=md5_file($filename);
 				return;
 			}
@@ -103,9 +110,33 @@ class watchCommand extends Command{
 			if($file_md5!=md5_file($filename)){
 				//开启子进程执行php boot文件
 				$this->fetchPHP($filename);
+				//将pcss加入到监控中
+				$pcss_file=dirname($filename).'\\'.basename($filename,'.php').'.pcss';
+				if(!file_exists($pcss_file)){
+    				echo "$pcss_file not found!\n";
+    				return;
+				}
+				$this->allFile[$pcss_file]=md5_file($pcss_file);
 				$this->allFile[$filename]=md5_file($filename);
 			}
 
+		}else if($ext=='pcss'){
+			
+			$file_md5=$this->allFile[$filename];
+			if(empty($file_md5)){
+				//还没有监控
+				return;
+			}
+			//监控后，文件发生改变
+			var_dump($file_md5);
+			if($file_md5!=md5_file($filename)){
+				//执行对应的php文件
+				$php_file=dirname($filename).'/'.basename($filename,'.pcss').'.php';
+				var_dump($php_file);
+				$this->fetchPHP($php_file);
+				$this->allFile[$php_file]=md5_file($php_file);
+				$this->allFile[$filename]=md5_file($filename);
+			}
 		}
 	}
     private function fetchPHP($phpFile){
