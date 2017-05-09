@@ -12,6 +12,8 @@ use Symfony\Component\Finder\Finder;
 class watchCommand extends Command{
     private $allFile=array();
     private $outputDir='';
+
+
     protected function configure(){
         $this
         ->setName('watch')
@@ -36,9 +38,9 @@ class watchCommand extends Command{
         }
 		$this->outputDir=$dest;
         if($path==='file'){
-            $this->fetchFile($src);
+            $this->watchFile($src);
         }else{
-			$this->fetchDir($src);
+			$this->watchDir($src);
 		}
     }
 
@@ -48,10 +50,10 @@ class watchCommand extends Command{
 	 * @param string $dirname 监视的目录
 	 * @param string $outputdir 默认为空，输出的目录
 	 */
-	public function watchDir($dirname,$outputDir=''){
+	public function watchDir($dirname){
 		while(TRUE){
-			$this->fetchDir($dirname,$outputDir);
-			sleep(1);
+			$this->fetchDir($dirname);
+			sleep(3);
 		}
 	}
     /**
@@ -60,10 +62,10 @@ class watchCommand extends Command{
 	 * @param string $filename 监视的文件
 	 * @param string $outputdir 默认为空，输出的目录
 	 */
-	public function watchFile($filename,$outputDir=''){
+	public function watchFile($filename){
 		while(TRUE){
-			$this->fetchFile($filename,$outputDir);
-			sleep(1);
+			$this->fetchFile($filename);
+			sleep(3);
 		}
 	}
     /**
@@ -86,12 +88,16 @@ class watchCommand extends Command{
 	 */
 	private function fetchFile($filename){
 		$ext=$this->get_extension($filename);
-		if($ext=='php'){
+
+		if($ext=='php' ){
+
 			$file_md5=$this->allFile[$filename];
+
 			if(empty($file_md5)){
 				//开启子进程执行php boot文件
                 $this->fetchPHP($filename);
 				$this->allFile[$filename]=md5_file($filename);
+				return;
 			}
 				
 			if($file_md5!=md5_file($filename)){
@@ -99,6 +105,7 @@ class watchCommand extends Command{
 				$this->fetchPHP($filename);
 				$this->allFile[$filename]=md5_file($filename);
 			}
+
 		}
 	}
     private function fetchPHP($phpFile){
@@ -133,7 +140,6 @@ class watchCommand extends Command{
 	private function get_extension($file)
 	{
 		$info = pathinfo($file);
-		
 		if(empty($info['extension'])){
 			return '';
 		}

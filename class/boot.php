@@ -1,6 +1,6 @@
 <?php
 //启动文件，设置一些常用的变量和初始化模板引擎
-
+// error_reporting(0);
 $pcss_path=dirname(dirname(__FILE__));
 
 require $pcss_path.'/vendor/autoload.php';

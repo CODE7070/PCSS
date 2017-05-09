@@ -1,6 +1,10 @@
 <?php
+
 // application.php
 namespace PCSS;
+
+//将php报错屏蔽掉
+error_reporting(0);
 $rootPath = dirname(dirname(__FILE__));
 
 require $rootPath.'/vendor/autoload.php';
